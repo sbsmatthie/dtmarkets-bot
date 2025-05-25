@@ -79,7 +79,7 @@ const AppWrapper = observer(() => {
     const { clear } = summary_card;
     const { DASHBOARD, BOT_BUILDER } = DBOT_TABS;
     const init_render = React.useRef(true);
-    const hash = ['dashboard', 'bot_builder', 'chart', 'analysis', 'tool', 'bots', 'signal', 'copy', 'tradeview'];
+    const hash = ['dashboard', 'bot_builder', 'tradeview', 'chart', 'analysis', 'tool', 'bots', 'signal', 'copy'];
     const { isDesktop } = useDevice();
     const location = useLocation();
     const navigate = useNavigate();
@@ -210,8 +210,8 @@ const AppWrapper = observer(() => {
                             label={(
                                 <>
                                     <LabelPairedObjectsColumnCaptionRegularIcon
-                                        height='24px'
-                                        width='24px'
+                                        height='20px'
+                                        width='20px'
                                         fill='orange'
                                     />
                                     <Localize i18n_default_text='Dashboard' />
@@ -226,8 +226,8 @@ const AppWrapper = observer(() => {
                             label={(
                                 <>
                                     <LabelPairedPuzzlePieceTwoCaptionBoldIcon
-                                        height='24px'
-                                        width='24px'
+                                        height='20px'
+                                        width='20px'
                                         fill='orange'
                                     />
                                     <Localize i18n_default_text='Bot Builder' />
@@ -239,9 +239,29 @@ const AppWrapper = observer(() => {
                         <div
                             label={(
                                 <>
+                                    <LabelPairedChartTradingviewLgRegularIcon
+                                        height='20px'
+                                        width='20px'
+                                        fill='orange'
+                                    />
+                                    <Localize i18n_default_text='TradeView' />
+                                </>
+                            )}
+                            id='id-tradeview'
+                            onClick={() => handleLinkChange('tradeview')}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <Suspense fallback={<ChunkLoader message={localize('Please wait, loading charts page...')} />}>
+                                <Tradeview />
+                            </Suspense>
+                        </div>
+
+                        <div
+                            label={(
+                                <>
                                     <LabelPairedChartLineCaptionRegularIcon
-                                        height='24px'
-                                        width='24px'
+                                        height='20px'
+                                        width='20px'
                                         fill='orange'
                                     />
                                     <Localize i18n_default_text='Charts' />
@@ -259,8 +279,8 @@ const AppWrapper = observer(() => {
                             label={(
                                 <>
                                     <IllustrativeDigitalOptionsIcon
-                                        height='24px'
-                                        width='24px'
+                                        height='20px'
+                                        width='20px'
                                         fill='orange'
                                     />
                                     <Localize i18n_default_text={localize('Analysis')} />
@@ -279,8 +299,8 @@ const AppWrapper = observer(() => {
                             label={(
                                 <>
                                     <IllustrativeMultipleAssetsIcon
-                                        height='24px'
-                                        width='24px'
+                                        height='20px'
+                                        width='20px'
                                         fill='orange'
                                     />
                                     <Localize i18n_default_text={localize('Tools')} />
@@ -299,8 +319,8 @@ const AppWrapper = observer(() => {
                             label={(
                                 <>
                                     <LabelPairedGaugeMaxLgRegularIcon
-                                        height='24px'
-                                        width='24px'
+                                        height='20px'
+                                        width='20px'
                                         fill='orange'
                                     />
                                     <Localize i18n_default_text={localize('Bots')} />
@@ -323,8 +343,8 @@ const AppWrapper = observer(() => {
                             label={(
                                 <>
                                     <LabelPairedSignalXlRegularIcon
-                                        height='24px'
-                                        width='24px'
+                                        height='20px'
+                                        width='20px'
                                         fill='orange'
                                     />
                                     <Localize i18n_default_text={localize('Signal')} />
@@ -343,8 +363,8 @@ const AppWrapper = observer(() => {
                             label={(
                                 <>
                                     <LabelPairedCopyMdRegularIcon
-                                        height='24px'
-                                        width='24px'
+                                        height='20px'
+                                        width='20px'
                                         fill='orange'
                                     />
                                     <Localize i18n_default_text={localize('Copytrade')} />
@@ -356,26 +376,6 @@ const AppWrapper = observer(() => {
                         >
                             <Suspense fallback={<ChunkLoader message={localize('Please wait, loading copy page...')} />}>
                                 <Copy />
-                            </Suspense>
-                        </div>
-
-                        <div
-                            label={(
-                                <>
-                                    <LabelPairedChartTradingviewLgRegularIcon
-                                        height='24px'
-                                        width='24px'
-                                        fill='orange'
-                                    />
-                                    <Localize i18n_default_text='TradeView' />
-                                </>
-                            )}
-                            id='id-tradeview'
-                            onClick={() => handleLinkChange('tradeview')}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <Suspense fallback={<ChunkLoader message={localize('Please wait, loading charts page...')} />}>
-                                <Tradeview />
                             </Suspense>
                         </div>
                     </Tabs>
