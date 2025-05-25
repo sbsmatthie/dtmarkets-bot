@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Copy Trading Setup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #121212;
+      color: #ffcc00;
+      padding-bottom: 1000px;
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ffcc00;
+    }
+
+    .tab {
+      padding: 12px 20px;
+      cursor: pointer;
+      color: #ffcc00;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+      font-size: 0.6em;
+    }
+
+    .tab.active {
+      border-bottom: 4px solid #ffcc00;
+      font-weight: bold;
+    }
+
+    .content-wrapper {
+      position: relative;
+      margin: 20px;
+      padding: 0;
+      background-color: #1a1a1a;
+    }
+
+    .corner {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #ffcc00;
+      box-sizing: border-box;
+    }
+
+    .top-left {
+      top: 0;
+      left: 0;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .top-right {
+      top: 0;
+      right: 0;
+      border-left: none;
+      border-bottom: none;
+    }
+
+    .bottom-left {
+      bottom: 0;
+      left: 0;
+      border-right: none;
+      border-top: none;
+    }
+
+    .bottom-right {
+      bottom: 0;
+      right: 0;
+      border-left: none;
+      border-top: none;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      font-size: 0.9em;
+      margin-bottom: 0px;
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .red { background-color: red; }
+    .orange { background-color: orange; }
+    .green { background-color: limegreen; }
+
+    .switch {
+      margin-top: -3px;
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #888;
+      transition: 0.4s;
+      border-radius: 20px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #fff;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #ffcc00;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(16px);
+    }
+
+    .toggleLabel {
+      margin-top: -3px;
+      margin-right: 10px;
+    }
+
+
+    .section {
+      padding: 20px;
+      margin-top: -20px;
+    }
+
+    .section-title {
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      background: #1e1e1e;
+      border: 1px solid #ffcc00;
+      color: #ffcc00;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    button {
+      background-color: #ffcc00;
+      color: #121212;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .terminal {
+      background-color: #1e1e1e;
+      color: #00ff00;
+      padding: 15px;
+      height: 200px;
+      overflow-y: auto;
+      font-family: monospace;
+      border-radius: 4px;
+      border: 1px solid #ffcc00;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0px;
+    }
+
+    th, td {
+      padding-top: 10px;
+      text-align: left;
+      font-size: 12px;
+    }
+
+    .delete-btn {
+      color: red;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .delete-btn:hover {
+      color: darkred;
+    }
+
+    /* Snackbar container */
+    #snackbar {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 16px;
+      position: fixed;
+      z-index: 10000;
+      left: 50%;
+      bottom: 30px;
+      font-size: 17px;
+      opacity: 0;
+      transition: opacity 0.5s ease, bottom 0.5s ease;
+    }
+
+    #snackbar.show {
+      visibility: visible;
+      opacity: 1;
+      bottom: 50px;
+    }
+
+    @media (max-width: 600px) {
+      .input-group {
+        display: flex;
+        flex-direction: column; /* <-- this aligns children vertically */
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tabs">
+    <div class="tab active" onclick="setActiveTab(this)">NORMAL COPY TRADING</div>
+    <div class="tab" onclick="setActiveTab(this)">DEMO TO REAL</div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="corner top-left"></div>
+    <div class="corner top-right"></div>
+    <div class="corner bottom-left"></div>
+    <div class="corner bottom-right"></div>
+
+    <div class="header">
+      <div class="title"><h2>TRADING SETUP</h2></div>
+        
+      <div class="dots">
+        <label class="switch">
+          <input type="checkbox" id="toggleSwitch" />
+          <span class="slider"></span>
+        </label>
+        <span class="toggleLabel" id="toggleLabel">OFF</span>
+
+        <div class="dot red"></div>
+        <div class="dot orange"></div>
+        <div class="dot green"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">MANAGE TRADER TOKENS</div>
+      <div class="input-group">
+        <input type="text" placeholder="Enter trader auth token" id="tokenInput" />
+        <button id="myButton" onclick="getInput('start')">Add</button>
+        <button onclick="getInput('list')">Reload</button>
+      </div>
+
+      <div class="terminal">
+        <table id="tokenTable">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+   <!-- Snackbar container -->
+  <div id="snackbar"></div>
+
+  <script>
+    var APP_ID = 72081;
+    let token = localStorage.getItem('authToken');
+
+    document.querySelector('.switch').style.display = 'none';
+    document.getElementById('toggleLabel').style.display = 'none';
+
+    function setActiveTab(tab) {
+      document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+      tab.classList.add('active');
+
+      document.querySelector('.switch').style.display = 'none';
+      document.getElementById('toggleLabel').style.display = 'none';
+
+      const tabs = document.querySelectorAll('.tab');
+      if (!tabs[0].classList.contains('active')) {
+        document.querySelector('.switch').style.display = 'block';
+        document.getElementById('toggleLabel').style.display = 'block';
+      }
+    }
+
+    const toggle = document.getElementById("toggleSwitch");
+    const toggleLabel = document.getElementById("toggleLabel");
+    let isdemo_toreal = localStorage.getItem('demo_to_real');
+
+    if (isdemo_toreal === 'true' | isdemo_toreal === true) {
+      toggle.checked = true;
+    }
+    toggleLabel.textContent = toggle.checked ? "ON" : "OFF";
+
+    toggle.addEventListener("change", () => {
+      toggleLabel.textContent = toggle.checked ? "ON" : "OFF";
+      let accounts_list = JSON.parse(localStorage.getItem('accountsList')) || {};
+      if (toggle.checked) {
+          const keys = Object.keys(accounts_list);
+          for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+
+            if (!key.startsWith("VR")) {
+              const value = accounts_list[key];
+              let storedArray = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
+              storedArray.push(value);
+              localStorage.setItem('copyTokensArray', JSON.stringify(storedArray));
+            }
+          }
+          localStorage.setItem('demo_to_real', true);
+          showMessage('demo to real copytrade has been activated');
+      } 
+      else {
+          const keys = Object.keys(accounts_list);
+          for (let i = 0; i < keys.length; i++) {
+              const key = keys[i];
+              const value = accounts_list[key]; console.log(key, value)
+              let storedArray = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
+              storedArray = storedArray.filter(token => token !== value);
+              localStorage.setItem('copyTokensArray', JSON.stringify(storedArray));
+          }
+          localStorage.setItem('demo_to_real', false);
+          showMessage('demo to real copytrade has been de-activated');
+      }
+
+      renderTable(); 
+    });
+
+    const tokenInput = document.getElementById('tokenInput');
+    tokenInput.addEventListener('input', () => {
+        const the_new = tokenInput.value.trim(); // Trim whitespace
+        const storedArray = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
+        const btn = document.getElementById('myButton');
+        if (storedArray.includes(the_new)) {
+            btn.innerText = 'Stop';
+            btn.style.backgroundColor = 'red';
+            btn.style.color = 'white';
+        } else {
+            btn.innerText = 'Add';
+            btn.style.backgroundColor = '';
+            btn.style.color = '';
+        }
+
+        renderTable();
+    });
+
+    function getInput(sss) {
+      const input = document.getElementById('tokenInput').value.trim();
+      if (sss === 'start' | sss === 'stop') {
+        if (input) {
+          const btn = document.getElementById('myButton');
+          if (btn.innerText === 'Add') {
+              btn.innerText = 'Stop';
+              btn.style.backgroundColor = 'red';
+              btn.style.color = 'white';
+
+              let storedArray = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
+              storedArray.push(input);
+              localStorage.setItem('copyTokensArray', JSON.stringify(storedArray));
+
+              showMessage('added: ' + input);
+          } else {
+              btn.innerText = 'Add';
+              btn.style.backgroundColor = '';
+              btn.style.color = '';
+
+              let storedArray = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
+              storedArray = storedArray.filter(item => item !== input);
+              localStorage.setItem('copyTokensArray', JSON.stringify(storedArray));
+
+              showMessage('removed: ' + input);
+          }    
+        }
+        else {
+          showMessage('Enter token to copy');
+        }
+      }
+      if (sss === 'list') {
+          renderTable();
+          showMessage('tokens loaded');  
+      }
+
+      renderTable();
+    }
+
+    const tokenTableBody = document.querySelector('#tokenTable tbody');
+    
+    function renderTable() {
+      let tokens = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
+      tokenTableBody.innerHTML = ''; // Clear table first
+      tokens.forEach((token, index) => {
+        const row = document.createElement('tr');
+
+        const tokenCell = document.createElement('td');
+        tokenCell.textContent = token;
+        row.appendChild(tokenCell);
+
+        const actionCell = document.createElement('td');
+        const deleteBtn = document.createElement('span');
+        deleteBtn.textContent = 'X';
+        deleteBtn.classList.add('delete-btn');
+        deleteBtn.onclick = () => {
+          tokens.splice(index, 1);
+          localStorage.setItem('copyTokensArray', JSON.stringify(tokens));
+          renderTable();
+          showMessage('token removed!')
+        };
+        actionCell.appendChild(deleteBtn);
+        row.appendChild(actionCell);
+
+        tokenTableBody.appendChild(row);
+      });
+    }
+
+    renderTable();
+
+    function showMessage(message) {
+      const snackbar = document.getElementById('snackbar');
+      snackbar.textContent = message;
+      snackbar.className = 'show';
+
+      // Hide it after 3 seconds
+      setTimeout(() => {
+        snackbar.className = snackbar.className.replace('show', '');
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
