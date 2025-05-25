@@ -164,7 +164,7 @@ const AppHeader = observer(() => {
                         display: 'flex',
                         alignItems: 'center',
                         gap: '10px',
-                        marginRight: '24px', // 👈 Add margin here
+                        marginRight: '24px !important',
                     }}
                 >
                     <span className='logo-text'>
