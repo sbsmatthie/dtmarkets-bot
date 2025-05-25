@@ -59,9 +59,20 @@ const AppHeader = observer(() => {
         } else if (activeLoginid) {
             return (
                 <>
-                    <a href="https://www.somelink.com" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', marginRight: '8px' }}>
-                        <LabelPairedChartLineCaptionRegularIcon style={{ cursor: 'pointer' }} />
+                    <a
+                        href="https://www.somelink.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            marginRight: '8px',
+                            color: 'white' // <-- sets icon color to white
+                        }}
+                    >
+                        <LabelPairedChartLineCaptionRegularIcon style={{ cursor: 'pointer', color: 'inherit' }} />
                     </a>
+
                     {/* <CustomNotifications /> */}
                     {isDesktop &&
                         (() => {

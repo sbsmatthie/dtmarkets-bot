@@ -79,7 +79,7 @@ const AppWrapper = observer(() => {
     const { clear } = summary_card;
     const { DASHBOARD, BOT_BUILDER } = DBOT_TABS;
     const init_render = React.useRef(true);
-    const hash = ['dashboard', 'bot_builder', 'tradeview', 'analysis','chart', 'tool', 'bots', 'signal', 'copy'];
+    const hash = ['dashboard', 'bot_builder','analysis', 'tradeview', 'ai', 'bots', 'copy',  'signal','chart'];
     const { isDesktop } = useDevice();
     const location = useLocation();
     const navigate = useNavigate();
@@ -239,6 +239,26 @@ const AppWrapper = observer(() => {
                         <div
                             label={(
                                 <>
+                                    <IllustrativeDigitalOptionsIcon
+                                        height='20px'
+                                        width='20px'
+                                        fill='orange'
+                                    />
+                                    <Localize i18n_default_text={localize('Analysis')} />
+                                </>
+                            )}
+                            id='id-analysis'
+                            onClick={() => handleLinkChange('analysis')}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <Suspense fallback={<ChunkLoader message={localize('Please wait, loading page...')} />}>
+                                <Analysis />
+                            </Suspense>
+                        </div>
+
+                        <div
+                            label={(
+                                <>
                                     <LabelPairedChartTradingviewLgRegularIcon
                                         height='20px'
                                         width='20px'
@@ -264,53 +284,15 @@ const AppWrapper = observer(() => {
                                         width='20px'
                                         fill='orange'
                                     />
-                                    <Localize i18n_default_text={localize('Analysis')} />
+                                    <Localize i18n_default_text={localize('AI')} />
                                 </>
                             )}
-                            id='id-analysis'
-                            onClick={() => handleLinkChange('analysis')}
+                            id='id-ai'
+                            onClick={() => handleLinkChange('ai')}
                             style={{ cursor: 'pointer' }}
                         >
                             <Suspense fallback={<ChunkLoader message={localize('Please wait, loading page...')} />}>
-                                <Analysis />
-                            </Suspense>
-                        </div>
-
-                        <div
-                            label={(
-                                <>
-                                    <LabelPairedChartLineCaptionRegularIcon
-                                        height='20px'
-                                        width='20px'
-                                        fill='orange'
-                                    />
-                                    <Localize i18n_default_text='Charts' />
-                                </>
-                            )}
-                            id={is_chart_modal_visible || is_trading_view_modal_visible ? 'id-charts--disabled' : 'id-charts'}
-                        >
-                            <Suspense fallback={<ChunkLoader message={localize('Please wait, loading chart...')} />}>
-                                <ChartWrapper show_digits_stats={false} />
-                            </Suspense>
-                        </div>
-
-                        <div
-                            label={(
-                                <>
-                                    <IllustrativeMultipleAssetsIcon
-                                        height='20px'
-                                        width='20px'
-                                        fill='orange'
-                                    />
-                                    <Localize i18n_default_text={localize('Tools')} />
-                                </>
-                            )}
-                            id='id-tool'
-                            onClick={() => handleLinkChange('tool')}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <Suspense fallback={<ChunkLoader message={localize('Please wait, loading  page...')} />}>
-                                <Tool />
+                                <AiPage />
                             </Suspense>
                         </div>
 
@@ -341,26 +323,6 @@ const AppWrapper = observer(() => {
                         <div
                             label={(
                                 <>
-                                    <LabelPairedSignalXlRegularIcon
-                                        height='20px'
-                                        width='20px'
-                                        fill='orange'
-                                    />
-                                    <Localize i18n_default_text={localize('Signal')} />
-                                </>
-                            )}
-                            id='id-signal'
-                            onClick={() => handleLinkChange('signal')}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <Suspense fallback={<ChunkLoader message={localize('Please wait, loading Signal page...')} />}>
-                                <SignalPage />
-                            </Suspense>
-                        </div>
-                        
-                        <div
-                            label={(
-                                <>
                                     <LabelPairedCopyMdRegularIcon
                                         height='20px'
                                         width='20px'
@@ -377,6 +339,47 @@ const AppWrapper = observer(() => {
                                 <Copy />
                             </Suspense>
                         </div>
+
+
+                        <div
+                            label={(
+                                <>
+                                    <LabelPairedSignalXlRegularIcon
+                                        height='20px'
+                                        width='20px'
+                                        fill='orange'
+                                    />
+                                    <Localize i18n_default_text={localize('Signal')} />
+                                </>
+                            )}
+                            id='id-signal'
+                            onClick={() => handleLinkChange('signal')}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <Suspense fallback={<ChunkLoader message={localize('Please wait, loading Signal page...')} />}>
+                                <SignalPage />
+                            </Suspense>
+                        </div>
+
+                        <div
+                            label={(
+                                <>
+                                    <LabelPairedChartLineCaptionRegularIcon
+                                        height='20px'
+                                        width='20px'
+                                        fill='orange'
+                                    />
+                                    <Localize i18n_default_text='Charts' />
+                                </>
+                            )}
+                            id={is_chart_modal_visible || is_trading_view_modal_visible ? 'id-charts--disabled' : 'id-charts'}
+                        >
+                            <Suspense fallback={<ChunkLoader message={localize('Please wait, loading chart...')} />}>
+                                <ChartWrapper show_digits_stats={false} />
+                            </Suspense>
+                        </div>
+                        
+                        
                     </Tabs>
                 </div>
             </div>
