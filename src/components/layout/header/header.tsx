@@ -15,7 +15,22 @@ import {
     LabelPairedGaugeMaxLgRegularIcon,
     LabelPairedCopyMdRegularIcon,
     LabelPairedChartTradingviewLgRegularIcon,
+    LabelPairedTelegramCaptionIcon,
+    LabelPairedWhatsappCaptionIcon,
+    LabelPairedWalletCircleMinusLgRegularIcon,
+    LabelPairedWalletCirclePlusCaptionRegularIcon,
+    LabelPairedFileInvoiceDollarLgRegularIcon,
 } from '@deriv/quill-icons/LabelPaired';
+
+import {
+    StandaloneWalletCirclePlusRegularIcon,
+    StandaloneWalletCircleMinusRegularIcon,
+} from '@deriv/quill-icons/Standalone';
+
+import {
+    LegacyCloseCircle2pxBlackIcon,
+    LegacySettings1pxIcon,
+} from '@deriv/quill-icons/Legacy';
 
 import { requestOidcAuthentication } from '@deriv-com/auth-client';
 import { Localize, useTranslations } from '@deriv-com/translations';
@@ -33,6 +48,7 @@ import './header.scss';
 // SBS imports
 import { ArrowDownCircle, ArrowUpCircle, Mail, Menu } from 'lucide-react';
 import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 
 const AppHeader = observer(() => {
     const { isGBLoaded, isGBAvailable } = useIsGrowthbookIsLoaded();
@@ -153,19 +169,14 @@ const AppHeader = observer(() => {
                 })}
             >
                 <Wrapper variant='left'>
-                    {!isDesktop && (
-                        <button className='menu-button' onClick={() => setIsDrawerOpen(true)}>
-                            <Menu size={24} />
-                        </button>
-                    )}
-                    <div className='slider_drawer'>
+                    {isDesktop ? (
                         <div
                             className='custom-logo-wrapper'
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '10px',
-                                marginRight: '24px !important',
+                                marginRight: '24px',
                             }}
                         >
                             <span className='logo-text'>
@@ -173,18 +184,124 @@ const AppHeader = observer(() => {
                                 <span className='logo-markets'>markets</span>
                             </span>
                         </div>
+                    ) : (
+                        <>
+                            <button
+                                className='menu-button'
+                                onClick={() => setIsDrawerOpen(prev => !prev)}
+                            >
+                                {isDrawerOpen ? <X size={24} /> : <Menu size={24} />}
+                            </button>
 
-                        <div> 
-                            //element 1
-                            //element 2
-                            // element 3
-                        </div>
-                    </div>
+                            <div className={`mobile-menu ${isDrawerOpen ? 'open' : ''}`}>
+                                <div
+                                    className='custom-logo-wrapper'
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '10px',
+                                        marginRight: '24px',
+                                    }}
+                                >
+                                    <LegacyCloseCircle2pxBlackIcon onClick={() => setIsDrawerOpen(prev => !prev)}
+                                        height='30px'
+                                        width='30px'
+                                        fill='orange'
+                                    />
+                                    <span className='logo-text'>
+                                        <span className='logo-d'>dt</span>
+                                        <span className='logo-markets'>markets</span>
+                                    </span>
+                                </div>
+
+                                <a
+                                  href="https://app.deriv.com/reports/positions"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="menu-link-button"
+                                >
+                                  <LabelPairedFileInvoiceDollarLgRegularIcon
+                                    height="30px"
+                                    width="30px"
+                                    fill="orange"
+                                  />
+                                  <span>Reports</span>
+                                </a>
+                                <a
+                                  href="https://app.deriv.com/settings"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="menu-link-button"
+                                >
+                                  <LegacySettings1pxIcon
+                                    height="30px"
+                                    width="30px"
+                                    fill="orange"
+                                  />
+                                  <span>Settings</span>
+                                </a>
+                                <a
+                                  href="#"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="menu-link-button"
+                                >
+                                  <LabelPairedWalletCirclePlusCaptionRegularIcon
+                                    height="30px"
+                                    width="30px"
+                                    fill="orange"
+                                  />
+                                  <span>Deposit</span>
+                                </a>
+                                <a
+                                  href="#"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="menu-link-button"
+                                >
+                                  <LabelPairedWalletCircleMinusLgRegularIcon
+                                    height="30px"
+                                    width="30px"
+                                    fill="orange"
+                                  />
+                                  <span>Withdraw</span>
+                                </a>
+                                <a
+                                  href="https://t.me/dtmarketsgroup"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="menu-link-button"
+                                >
+                                  <LabelPairedTelegramCaptionIcon
+                                    height="30px"
+                                    width="30px"
+                                    fill="orange"
+                                  />
+                                  <span>Telegram</span>
+                                </a>
+                                <a
+                                  href="https://whatsapp.com/channel/0029Vb5iDH1EFeXnLlfgzt01"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="menu-link-button"
+                                >
+                                  <LabelPairedWhatsappCaptionIcon
+                                    height="30px"
+                                    width="30px"
+                                    fill="orange"
+                                  />
+                                  <span>WhatsAPP</span>
+                                </a>
+                            </div>
+                        </>
+                    )}
                 </Wrapper>
+
                 <Wrapper variant='right'>{renderAccountSection()}</Wrapper>
             </Header>
         </>
     );
+
 });
 
 export default AppHeader;

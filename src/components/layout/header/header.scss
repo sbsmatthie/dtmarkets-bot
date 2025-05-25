@@ -213,9 +213,7 @@
         border-radius: 4px;
         box-shadow: 0 8px 16px 0 var(--shadow-menu) !important;
         position: absolute;
-        transition:
-            transform 0.3s ease,
-            opacity 0.25s linear;
+        transition: transform 0.3s ease, opacity 0.25s linear;
         width: 320px;
         top: 55px;
         right: unset;
@@ -290,6 +288,8 @@
     border-bottom: none;
 }
 
+/* --------------------------- LOGO --------------------------- */
+
 .app-header__logo {
     font-size: 2rem !important;
     font-weight: bold !important;
@@ -307,79 +307,98 @@
     }
 }
 
-.mobile-menu {
-    display: flex;
-    gap: 1rem;
-    padding-left: 1rem;
+/* --------------------------- MOBILE MENU --------------------------- */
 
-    button {
-        background: none;
-        border: none;
-        color: #fff !important;
-        font-size: 1.4rem;
-        cursor: pointer;
-        padding: 0.5rem;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-
-        &:hover {
-            color: orange !important;
-
-            .mobile-menu__icon {
-                stroke: orange !important;
-            }
-        }
-    }
-
-    &__icon {
-        stroke: orange !important;
-        width: 1.4rem;
-        height: 1.4rem;
-    }
+.menu-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 8px;
 }
 
-/* On mobile, change the color of the hamburger menu icon to orange */
+.mobile-menu-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    cursor: pointer;
+}
+
 .mobile-menu-icon__button {
-    color: orange; /* Set the icon color to orange */
     stroke-width: 2;
     width: 30px;
     height: 30px;
-}
+    color: orange !important;
 
-@media (max-width: 768px) {
-    .mobile-menu-icon__button {
-        color: orange; /* Set the icon color to orange for mobile */
+    svg {
+        stroke: orange !important;
+        fill: orange !important;
     }
 }
 
-/* Hide the menu on mobile by default */
-@media (max-width: 768px) {
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 60%;
+    background: #1c1c1e;
+    border-right: 4px solid orange;
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.6);
+    padding: 20px 16px;
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 1000;
+    border-radius: 0;
+
+    &.open {
+        display: flex;
+    }
+
+    a {
+        display: flex;              // enables horizontal layout
+        align-items: center;        // vertical alignment
+        gap: 10px;                  // space between icon and text
+        background: none;
+        color: white;
+        border: none;
+        text-align: left;
+        padding: 5px;
+        font-size: 12px;
+        cursor: pointer;
+
+        svg {
+            flex-shrink: 0;         // prevent shrinking of icon
+        }
+
+        &:hover {
+            background-color: #333;
+        }
+    }
+}
+
+
+
+
+@media (min-width: 769px) {
     .mobile-menu {
-        display: none !important;
+        display: flex !important;
+        position: static;
+        flex-direction: row;
+        background: none;
+        box-shadow: none;
+        padding: 0;
+        gap: 1rem;
     }
 
     .mobile-menu-icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1rem;
-        cursor: pointer;
-    }
-
-    .mobile-menu-icon__button {
-        color: var(--text-prominent);
-        stroke-width: 2;
-        width: 30px;
-        height: 30px;
-    }
-
-    /* Show the menu when it is toggled */
-    .mobile-menu.open {
-        display: block;
+        display: none;
     }
 }
+
+/* --------------------------- LOGO TEXT --------------------------- */
 
 @keyframes glow {
     0%, 100% {
@@ -388,10 +407,6 @@
     50% {
         text-shadow: 0 0 12px rgba(255, 255, 255, 1);
     }
-}
-
-.logo-text .logo-markets {
-    animation: glow 1.5s ease-in-out infinite;
 }
 
 .logo-text {
@@ -419,90 +434,6 @@
 
     .logo-markets {
         color: #ffffff;
-    }
-}
-
-
-
-
-/* On desktop, show the menu */
-@media (min-width: 768px) {
-    .mobile-menu {
-        display: flex !important;
-        gap: 1rem;
-        padding-left: 1rem;
-    }
-}
-
-
-
-
-
-/* Ensure mobile menu icon is orange on mobile screens */
-@media (max-width: 768px) {
-    .mobile-menu-icon__button {
-        width: 30px;
-        height: 30px;
-    }
-
-    .mobile-menu-icon__button svg {
-        stroke: orange !important;
-        fill: orange !important;
-    }
-}
-
-/* On mobile, change the color of the hamburger menu icon to orange */
-.mobile-menu-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    cursor: pointer;
-}
-
-.mobile-menu-icon__button {
-    color: orange !important;
-    stroke-width: 2;
-    width: 30px;
-    height: 30px;
-}
-
-@media (max-width: 768px) {
-    .mobile-menu-icon__button {
-        color: orange !important; /* Set the icon color to orange */
-    }
-}
-
-/* Hide the menu on mobile by default */
-@media (max-width: 768px) {
-    .mobile-menu {
-        display: none !important;
-    }
-
-    .mobile-menu-icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1rem;
-        cursor: pointer;
-    }
-
-    .mobile-menu-icon__button {
-        color: var(--text-prominent);
-        stroke-width: 2;
-        width: 30px;
-        height: 30px;
-    }
-
-    /* Show the menu when it is toggled */
-    .mobile-menu.open {
-        display: block;
-    }
-}
-
-/* On desktop, show the menu */
-@media (min-width: 769px) {
-    .mobile-menu {
-        display: flex !important;
+        animation: glow 1.5s ease-in-out infinite;
     }
 }
