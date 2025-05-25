@@ -79,7 +79,7 @@ const AppWrapper = observer(() => {
     const { clear } = summary_card;
     const { DASHBOARD, BOT_BUILDER } = DBOT_TABS;
     const init_render = React.useRef(true);
-    const hash = ['dashboard', 'bot_builder', 'tradeview', 'chart', 'analysis', 'tool', 'bots', 'signal', 'copy'];
+    const hash = ['dashboard', 'bot_builder', 'tradeview', 'analysis','chart', 'tool', 'bots', 'signal', 'copy'];
     const { isDesktop } = useDevice();
     const location = useLocation();
     const navigate = useNavigate();
@@ -259,25 +259,6 @@ const AppWrapper = observer(() => {
                         <div
                             label={(
                                 <>
-                                    <LabelPairedChartLineCaptionRegularIcon
-                                        height='20px'
-                                        width='20px'
-                                        fill='orange'
-                                    />
-                                    <Localize i18n_default_text='Charts' />
-                                </>
-                            )}
-                            id={is_chart_modal_visible || is_trading_view_modal_visible ? 'id-charts--disabled' : 'id-charts'}
-                        >
-                            <Suspense fallback={<ChunkLoader message={localize('Please wait, loading chart...')} />}>
-                                <ChartWrapper show_digits_stats={false} />
-                            </Suspense>
-                        </div>
-
-                        {/* Add links to new AI, Bots, Signal, and Invest pages */}
-                        <div
-                            label={(
-                                <>
                                     <IllustrativeDigitalOptionsIcon
                                         height='20px'
                                         width='20px'
@@ -292,6 +273,24 @@ const AppWrapper = observer(() => {
                         >
                             <Suspense fallback={<ChunkLoader message={localize('Please wait, loading page...')} />}>
                                 <Analysis />
+                            </Suspense>
+                        </div>
+
+                        <div
+                            label={(
+                                <>
+                                    <LabelPairedChartLineCaptionRegularIcon
+                                        height='20px'
+                                        width='20px'
+                                        fill='orange'
+                                    />
+                                    <Localize i18n_default_text='Charts' />
+                                </>
+                            )}
+                            id={is_chart_modal_visible || is_trading_view_modal_visible ? 'id-charts--disabled' : 'id-charts'}
+                        >
+                            <Suspense fallback={<ChunkLoader message={localize('Please wait, loading chart...')} />}>
+                                <ChartWrapper show_digits_stats={false} />
                             </Suspense>
                         </div>
 
