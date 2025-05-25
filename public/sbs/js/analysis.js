@@ -845,11 +845,12 @@
 
     function createRow(row) {
       const tr = document.createElement("tr");
+      const payoutClass = row.payout >= 0 ? 'payout-positive' : 'payout-negative';
       tr.innerHTML = `
         <td>${row.time}</td>
         <td>${row.asset}</td>
         <td>${row.stake + ' ' + CURRENCY}</td>
-        <td>${row.payout  + ' ' + CURRENCY}</td>
+        <td class="${payoutClass}">${row.payout} ${CURRENCY}</td>
       `;
       return tr;
     }

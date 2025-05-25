@@ -7,9 +7,6 @@ import useIsGrowthbookIsLoaded from '@/hooks/growthbook/useIsGrowthbookLoaded';
 import { useApiBase } from '@/hooks/useApiBase';
 import { useStore } from '@/hooks/useStore';
 import { StandaloneCircleUserRegularIcon } from '@deriv/quill-icons/Standalone';
-import { DerivLightP2pBannerImageIcon } from '@deriv/quill-icons/Standalone';
-import { DerivLightDepositIcon } from '@deriv/quill-icons/Illustrations';
-
 import {
     LabelPairedChartLineCaptionRegularIcon,
     LabelPairedObjectsColumnCaptionRegularIcon,
@@ -34,9 +31,8 @@ import PlatformSwitcher from './platform-switcher';
 import './header.scss';
 
 // SBS imports
-import { ArrowDownCircle, ArrowUpCircle, Mail } from 'lucide-react';
+import { ArrowDownCircle, ArrowUpCircle, Mail, Menu } from 'lucide-react';
 import { useState } from 'react';
-import { Menu } from 'lucide-react'; // Import Menu icon
 
 const AppHeader = observer(() => {
     const { isGBLoaded, isGBAvailable } = useIsGrowthbookIsLoaded();
@@ -51,7 +47,8 @@ const AppHeader = observer(() => {
     const currency = getCurrency?.();
     const { localize } = useTranslations();
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false); // Track menu state
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false); // Drawer state
 
     const renderAccountSection = () => {
         if (isAuthorizing) {
@@ -59,21 +56,6 @@ const AppHeader = observer(() => {
         } else if (activeLoginid) {
             return (
                 <>
-                    <a
-                        href="https://www.somelink.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            marginRight: '8px',
-                            color: 'white' // <-- sets icon color to white
-                        }}
-                    >
-                        <LabelPairedChartLineCaptionRegularIcon style={{ cursor: 'pointer', color: 'inherit' }} />
-                    </a>
-
-                    {/* <CustomNotifications /> */}
                     {isDesktop &&
                         (() => {
                             const redirect_url = new URL(standalone_routes.personal_details);
@@ -143,7 +125,8 @@ const AppHeader = observer(() => {
                         tertiary
                         onClick={async () => {
                             const app_id = window.localStorage.getItem('APP_ID');
-                            window.location.href = 'https://oauth.deriv.com/oauth2/authorize?app_id=' + app_id + '&l=EN&brand=deriv';
+                            window.location.href =
+                                'https://oauth.deriv.com/oauth2/authorize?app_id=' + app_id + '&l=EN&brand=deriv';
                         }}
                     >
                         <Localize i18n_default_text='Log in' />
@@ -162,31 +145,45 @@ const AppHeader = observer(() => {
     };
 
     return (
-        <Header
-            className={clsx('app-header', {
-                'app-header--desktop': isDesktop,
-                'app-header--mobile': !isDesktop,
-            })}
-        >
-            <Wrapper variant='left'>
-                <div
-                    className='custom-logo-wrapper'
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        marginRight: '24px !important',
-                    }}
-                >
-                    <span className='logo-text'>
-                        <span className='logo-d'>  dt</span>
-                        <span className='logo-markets'>markets</span>
-                    </span>
-                </div>
-            </Wrapper>
-            <Wrapper variant='right'>{renderAccountSection()}</Wrapper>
+        <>
+            <Header
+                className={clsx('app-header', {
+                    'app-header--desktop': isDesktop,
+                    'app-header--mobile': !isDesktop,
+                })}
+            >
+                <Wrapper variant='left'>
+                    {!isDesktop && (
+                        <button className='menu-button' onClick={() => setIsDrawerOpen(true)}>
+                            <Menu size={24} />
+                        </button>
+                    )}
+                    <div className='slider_drawer'>
+                        <div
+                            className='custom-logo-wrapper'
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                marginRight: '24px !important',
+                            }}
+                        >
+                            <span className='logo-text'>
+                                <span className='logo-d'>dt</span>
+                                <span className='logo-markets'>markets</span>
+                            </span>
+                        </div>
 
-        </Header>
+                        <div> 
+                            //element 1
+                            //element 2
+                            // element 3
+                        </div>
+                    </div>
+                </Wrapper>
+                <Wrapper variant='right'>{renderAccountSection()}</Wrapper>
+            </Header>
+        </>
     );
 });
 

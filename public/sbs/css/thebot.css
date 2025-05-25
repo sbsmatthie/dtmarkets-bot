@@ -339,6 +339,15 @@ body {
       margin-top: 0.01rem;
     }
 
+.payout-positive {
+  color: green;
+}
+
+.payout-negative {
+  color: red;
+}
+
+
     /* Responsive styling for small screens */
     @media (max-width: 768px) {
       .container {

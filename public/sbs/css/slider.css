@@ -255,3 +255,12 @@ th {
     color: #fff;
 }
 
+.payout-positive {
+  color: green;
+}
+
+.payout-negative {
+  color: red;
+}
+
+

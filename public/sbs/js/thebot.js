@@ -384,15 +384,21 @@ try {
     
     function createRow(row) {
       const tr = document.createElement("tr");
+
+      // Determine if payout is positive or negative
+      const payoutClass = row.payout >= 0 ? 'payout-positive' : 'payout-negative';
+
       tr.innerHTML = `
         <td>${row.time}</td>
         <td>${row.asset}</td>
         <td>${row.trade}</td>
-        <td>${row.stake + ' ' + CURRENCY}</td>
-        <td>${row.payout  + ' ' + CURRENCY}</td>
+        <td>${row.stake} ${CURRENCY}</td>
+        <td class="${payoutClass}">${row.payout} ${CURRENCY}</td>
       `;
+      
       return tr;
     }
+
 } catch (err) {
     isrunning = false;
   console.error('❌ Caught error:', err);
