@@ -48,6 +48,7 @@ const Tutorial = lazy(() => import('../tutorials'));
 const Analysis = lazy(() => import('../analysis/analysis'));
 const Tool = lazy(() => import('../tool/tool'));
 const Copy = lazy(() => import('../copy/copy'));
+const Tradeview = lazy(() => import('../tradeview/tradeview'));
 //const Tutorial = lazy(() => import('../tutorials'));
 
 const AppWrapper = observer(() => {
@@ -78,7 +79,7 @@ const AppWrapper = observer(() => {
     const { clear } = summary_card;
     const { DASHBOARD, BOT_BUILDER } = DBOT_TABS;
     const init_render = React.useRef(true);
-    const hash = ['dashboard', 'bot_builder', 'chart', 'analysis', 'tool', 'bots', 'signal', 'copy', 'trade_view'];
+    const hash = ['dashboard', 'bot_builder', 'chart', 'analysis', 'tool', 'bots', 'signal', 'copy', 'tradeview'];
     const { isDesktop } = useDevice();
     const location = useLocation();
     const navigate = useNavigate();
@@ -370,11 +371,11 @@ const AppWrapper = observer(() => {
                                 </>
                             )}
                             id='id-tradeview'
-                            onClick={() => handleLinkChange('trade_view')}
+                            onClick={() => handleLinkChange('tradeview')}
                             style={{ cursor: 'pointer' }}
                         >
                             <Suspense fallback={<ChunkLoader message={localize('Please wait, loading charts page...')} />}>
-                                <Copy />
+                                <Tradeview />
                             </Suspense>
                         </div>
                     </Tabs>
