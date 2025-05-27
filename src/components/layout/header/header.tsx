@@ -267,7 +267,7 @@ const AppHeader = observer(() => {
                                   <span>Withdraw</span>
                                 </a>
                                 <a
-                                  href="https://t.me/dtmarketsgroup"
+                                  href="https://t.me/klvinfx"
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="menu-link-button"
@@ -280,7 +280,7 @@ const AppHeader = observer(() => {
                                   <span>Telegram</span>
                                 </a>
                                 <a
-                                  href="https://whatsapp.com/channel/0029Vb5iDH1EFeXnLlfgzt01"
+                                  href="https://whatsapp.com/channel/0029Vb6HY8L96H4aTZs7pa1H"
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="menu-link-button"
