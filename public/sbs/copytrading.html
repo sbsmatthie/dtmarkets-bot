@@ -1,301 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Copy Trading Setup</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Copy Trading Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
       background-color: #121212;
-      color: #ffcc00;
-      padding-bottom: 1000px;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 400;
+      margin-bottom: 300px;
+      padding-bottom: 50rem; /* ✅ Add more bottom padding */
+      overflow-y: auto;      /* ✅ Enable vertical scroll */
+      overflow-y: scroll;
+      min-height: 100vh;
     }
 
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid #ffcc00;
+    .card {
+      background-color: #1f1f1f;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+      font-weight: 400;
     }
 
-    .tab {
-      padding: 12px 20px;
-      cursor: pointer;
-      color: #ffcc00;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.3s;
-      font-size: 0.6em;
+    .btn-green {
+      background-color: #28a745;
+      color: white;
+      font-weight: 400;
+      font-size: 0.75rem;
     }
 
-    .tab.active {
-      border-bottom: 4px solid #ffcc00;
-      font-weight: bold;
+    .btn-green:hover {
+      background-color: #218838;
     }
 
-    .content-wrapper {
-      position: relative;
-      margin: 20px;
-      padding: 0;
-      background-color: #1a1a1a;
+    .btn-blue {
+      background-color: #007bff;
+      color: white;
     }
 
-    .corner {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      border: 2px solid #ffcc00;
-      box-sizing: border-box;
-    }
-
-    .top-left {
-      top: 0;
-      left: 0;
-      border-right: none;
-      border-bottom: none;
-    }
-
-    .top-right {
-      top: 0;
-      right: 0;
-      border-left: none;
-      border-bottom: none;
-    }
-
-    .bottom-left {
-      bottom: 0;
-      left: 0;
-      border-right: none;
-      border-top: none;
-    }
-
-    .bottom-right {
-      bottom: 0;
-      right: 0;
-      border-left: none;
-      border-top: none;
-    }
-
-    .header {
+    .replicator-token {
+      background-color: #1a3b73;
+      color: #fff;
+      font-weight: 400;
+      padding: 15px 20px;
+      border-radius: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px;
-      font-size: 0.9em;
-      margin-bottom: 0px;
+      font-size: 0.85rem;
     }
 
-    .dots {
+    .btn-cyan {
+      background-color: #00e5ff;
+      color: black;
+      font-weight: 400;
+      font-size: 0.75rem;
+    }
+
+    .btn-cyan:hover {
+      background-color: #00bcd4;
+    }
+
+    input.form-control {
+      background-color: #2b2b2b;
+      color: white;
+      border: 1px solid #444;
+      font-size: 0.85rem;
+      font-weight: 400;
+    }
+
+    h5, h6 {
+      color: #e0e0e0;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    small.text-muted {
+      color: #aaa !important;
+      font-size: 0.75rem;
+      font-weight: 400;
+    }
+
+    .top-bar {
       display: flex;
-      gap: 6px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
     }
 
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
+    .youtube-icon img {
+      width: 32px;
+      height: 32px;
+      filter: drop-shadow(0 0 5px rgba(255,0,0,0.7));
     }
 
-    .red { background-color: red; }
-    .orange { background-color: orange; }
-    .green { background-color: limegreen; }
-
-    .switch {
-      margin-top: -3px;
-      position: relative;
-      display: inline-block;
-      width: 36px;
-      height: 20px;
+    .youtube-icon div {
+      font-size: 0.65rem;
+      color: #ccc;
+      text-align: center;
     }
 
-    .switch input {
+    .status-msg {
+      color: green;
       opacity: 0;
-      width: 0;
-      height: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      margin: 4px 0 0;
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
     }
 
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #888;
-      transition: 0.4s;
-      border-radius: 20px;
+    .status-msg.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 14px;
-      width: 14px;
-      left: 3px;
-      bottom: 3px;
-      background-color: #fff;
-      transition: 0.4s;
-      border-radius: 50%;
+    #tokenTable {
+      color: white;
     }
 
-    input:checked + .slider {
-      background-color: #ffcc00;
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(16px);
-    }
-
-    .toggleLabel {
-      margin-top: -3px;
-      margin-right: 10px;
-    }
-
-
-    .section {
-      padding: 20px;
-      margin-top: -20px;
-    }
-
-    .section-title {
-      margin-bottom: 10px;
-      font-size: 1.1em;
-    }
-
-    .input-group {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    input[type="text"] {
-      flex: 1;
-      padding: 10px;
-      background: #1e1e1e;
-      border: 1px solid #ffcc00;
-      color: #ffcc00;
-      border-radius: 4px;
-      font-family: 'Inter', sans-serif;
-    }
-
-    button {
-      background-color: #ffcc00;
-      color: #121212;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-weight: bold;
-      border-radius: 4px;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .terminal {
-      background-color: #1e1e1e;
-      color: #00ff00;
-      padding: 15px;
-      height: 200px;
-      overflow-y: auto;
-      font-family: monospace;
-      border-radius: 4px;
-      border: 1px solid #ffcc00;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin: 0px;
-    }
-
-    th, td {
-      padding-top: 10px;
-      text-align: left;
-      font-size: 12px;
-    }
-
-    .delete-btn {
+    #tokenTable .delete-btn {
       color: red;
       cursor: pointer;
       font-weight: bold;
     }
 
-    .delete-btn:hover {
-      color: darkred;
-    }
 
-    /* Snackbar container */
-    #snackbar {
-      visibility: hidden;
-      min-width: 250px;
-      margin-left: -125px;
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      border-radius: 8px;
-      padding: 16px;
-      position: fixed;
-      z-index: 10000;
-      left: 50%;
-      bottom: 30px;
-      font-size: 17px;
-      opacity: 0;
-      transition: opacity 0.5s ease, bottom 0.5s ease;
-    }
 
-    #snackbar.show {
-      visibility: visible;
-      opacity: 1;
-      bottom: 50px;
-    }
-
-    @media (max-width: 600px) {
-      .input-group {
-        display: flex;
-        flex-direction: column; /* <-- this aligns children vertically */
-        gap: 10px;
-        margin-bottom: 20px;
-      }
-    }
   </style>
 </head>
-<body>
+<body class="p-4">
 
-  <div class="tabs">
-    <div class="tab active" onclick="setActiveTab(this)">NORMAL COPY TRADING</div>
-    <div class="tab" onclick="setActiveTab(this)">DEMO TO REAL</div>
+  <div class="top-bar">
+    <button id="copy-trading-btn" class="btn btn-green">Start Demo to Real Copy Trading</button>
+    <div class="youtube-icon">
+      <img src="https://img.icons8.com/ios-filled/50/fa314a/youtube-play.png" alt="Tutorial">
+      <div>Tutorial</div>
+    </div>
   </div>
 
-  <div class="content-wrapper">
-    <div class="corner top-left"></div>
-    <div class="corner top-right"></div>
-    <div class="corner bottom-left"></div>
-    <div class="corner bottom-right"></div>
+  <div class="replicator-token mb-3">
+    <span>
+      <h5 id="login-id">---</h5>
+      <p id="status-msg" class="status-msg">Demo to real set successfully</p>
+    </span>
+    <span id="bal-id" style="color: gold;">0.00 USD</span>
+  </div>
 
-    <div class="header">
-      <div class="title"><h2>TRADING SETUP</h2></div>
-        
-      <div class="dots">
-        <label class="switch">
-          <input type="checkbox" id="toggleSwitch" />
-          <span class="slider"></span>
-        </label>
-        <span class="toggleLabel" id="toggleLabel">OFF</span>
+  <h5>Add tokens to Replicator</h5>
 
-        <div class="dot red"></div>
-        <div class="dot orange"></div>
-        <div class="dot green"></div>
-      </div>
+  <div class="card p-3">
+    <div class="input-group mb-2">
+      <input id="tokenInput" type="text" class="form-control" placeholder="Enter Client token">
+      <button id="start-token" class="btn btn-green">Start Copy Trading</button>
     </div>
+    <div class="d-flex gap-2">
+      <button id="btn-add" class="btn btn-cyan">Add</button>
+      <button id="btn-refresh" class="btn btn-cyan">Sync &#x21bb;</button>
+      <img src="https://img.icons8.com/ios-filled/24/fa314a/youtube-play.png" alt="yt" style="filter: drop-shadow(0 0 4px rgba(255,0,0,0.6));">
+    </div>
+    <p id="status-msg2" class="status-msg">Demo to real set successfully</p>
+  </div>
 
-    <div class="section">
-      <div class="section-title">MANAGE TRADER TOKENS</div>
-      <div class="input-group">
-        <input type="text" placeholder="Enter trader auth token" id="tokenInput" />
-        <button id="myButton" onclick="getInput('start')">Add</button>
-        <button onclick="getInput('list')">Reload</button>
-      </div>
-
-      <div class="terminal">
-        <table id="tokenTable">
+  <div class="card p-3">
+    <h6 id="tokens-num">Total Clients added: 0</h6>
+    <small id="no-tokens" class="text-muted"></small>
+    <table id="tokenTable">
           <thead>
             <tr>
               <th>Token</th>
@@ -304,137 +180,156 @@
           </thead>
           <tbody></tbody>
         </table>
-      </div>
-    </div>
   </div>
 
-   <!-- Snackbar container -->
-  <div id="snackbar"></div>
+  <script type="text/javascript">
+    const btn = document.getElementById('copy-trading-btn');
+    const btnStart = document.getElementById('start-token');
 
-  <script>
-    var APP_ID = 72081;
-    let token = localStorage.getItem('authToken');
+    //demo to real
+    const statusMsg = document.getElementById('status-msg');
+    btn.addEventListener('click', () => {
+        const isStart = btn.textContent.includes('Start');
 
-    document.querySelector('.switch').style.display = 'none';
-    document.getElementById('toggleLabel').style.display = 'none';
-
-    function setActiveTab(tab) {
-      document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-      tab.classList.add('active');
-
-      document.querySelector('.switch').style.display = 'none';
-      document.getElementById('toggleLabel').style.display = 'none';
-
-      const tabs = document.querySelectorAll('.tab');
-      if (!tabs[0].classList.contains('active')) {
-        document.querySelector('.switch').style.display = 'block';
-        document.getElementById('toggleLabel').style.display = 'block';
-      }
-    }
-
-    const toggle = document.getElementById("toggleSwitch");
-    const toggleLabel = document.getElementById("toggleLabel");
-    let isdemo_toreal = localStorage.getItem('demo_to_real');
-
-    if (isdemo_toreal === 'true' | isdemo_toreal === true) {
-      toggle.checked = true;
-    }
-    toggleLabel.textContent = toggle.checked ? "ON" : "OFF";
-
-    toggle.addEventListener("change", () => {
-      toggleLabel.textContent = toggle.checked ? "ON" : "OFF";
-      let accounts_list = JSON.parse(localStorage.getItem('accountsList')) || {};
-      if (toggle.checked) {
-          const keys = Object.keys(accounts_list);
-          for (let i = 0; i < keys.length; i++) {
-            const key = keys[i];
-
-            if (!key.startsWith("VR")) {
+        let accounts_list = JSON.parse(localStorage.getItem('accountsList')) || {};
+        if (isStart) {
+            const keys = Object.keys(accounts_list);
+            const key = keys[0];
+            if (keys.length > 0 && !key.startsWith("VR")) {
               const value = accounts_list[key];
               let storedArray = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
               storedArray.push(value);
               localStorage.setItem('copyTokensArray', JSON.stringify(storedArray));
+              
+              localStorage.setItem('demo_to_real', true);
+
+              btn.textContent = 'Stop Demo to Real Copy Trading';
+              btn.style.backgroundColor = 'red';
+              statusMsg.textContent = "Demo to real set successfully";
+              statusMsg.style.color = "green";
             }
-          }
-          localStorage.setItem('demo_to_real', true);
-          showMessage('demo to real copytrade has been activated');
-      } 
-      else {
-          const keys = Object.keys(accounts_list);
-          for (let i = 0; i < keys.length; i++) {
-              const key = keys[i];
-              const value = accounts_list[key]; console.log(key, value)
-              let storedArray = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
-              storedArray = storedArray.filter(token => token !== value);
-              localStorage.setItem('copyTokensArray', JSON.stringify(storedArray));
-          }
-          localStorage.setItem('demo_to_real', false);
-          showMessage('demo to real copytrade has been de-activated');
-      }
-
-      renderTable(); 
-    });
-
-    const tokenInput = document.getElementById('tokenInput');
-    tokenInput.addEventListener('input', () => {
-        const the_new = tokenInput.value.trim(); // Trim whitespace
-        const storedArray = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
-        const btn = document.getElementById('myButton');
-        if (storedArray.includes(the_new)) {
-            btn.innerText = 'Stop';
-            btn.style.backgroundColor = 'red';
-            btn.style.color = 'white';
+            else {
+              alert('no real account found!');
+            }
         } else {
-            btn.innerText = 'Add';
+            const keys = Object.keys(accounts_list);
+            const key = keys[0];
+            const value = accounts_list[key]; console.log(key, value)
+            let storedArray = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
+            storedArray = storedArray.filter(token => token !== value);
+            localStorage.setItem('copyTokensArray', JSON.stringify(storedArray));
+            localStorage.setItem('demo_to_real', false);
+
+            btn.textContent = 'Start Demo to Real Copy Trading';
             btn.style.backgroundColor = '';
-            btn.style.color = '';
+            statusMsg.textContent = "Stopped successfully";
+            statusMsg.style.color = "red";
         }
 
+        renderTable(); 
+
+        // Re-trigger the animation
+        statusMsg.classList.remove('show');
+        void statusMsg.offsetWidth; // Force reflow
+        statusMsg.classList.add('show');
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+            statusMsg.classList.remove('show');
+        }, 2000);
+    });
+
+    //start copy
+    const statusMsg2 = document.getElementById('status-msg2');
+    btnStart.addEventListener('click', () => {
+        const isStart = btnStart.textContent.includes('Start');
+        if (isStart) {
+            localStorage.setItem('iscopyTrading', true);
+            btnStart.textContent = 'Stop Copy Trading';
+            btnStart.style.backgroundColor = 'red';
+            statusMsg2.textContent = "Copy trading started successfully";
+            statusMsg2.style.color = "green";
+        } else {
+            localStorage.setItem('iscopyTrading', false);
+            btnStart.textContent = 'Start Copy Trading';
+            btnStart.style.backgroundColor = '';
+            statusMsg2.textContent = "Copy trading Stopped successfully";
+            statusMsg2.style.color = "red";
+        }
+
+        // Re-trigger the animation
+        statusMsg2.classList.remove('show');
+        void statusMsg2.offsetWidth; // Force reflow
+        statusMsg2.classList.add('show');
+
+        // Hide after seconds
+        setTimeout(() => {
+            statusMsg2.classList.remove('show');
+        }, 2000);
+    });
+
+    //add tokens
+    const btnAdd = document.getElementById('btn-add');
+    btnAdd.addEventListener('click', () => {
+        const tokenInput = document.getElementById('tokenInput');
+        if (tokenInput) {
+          const the_new = tokenInput.value.trim();
+          const storedArray = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
+          var msgg;
+          if (storedArray.includes(the_new)) {
+              msgg = 'token already exists';
+              statusMsg2.style.color = "red";
+          } else {
+              storedArray.push(tokenInput);
+              localStorage.setItem('copyTokensArray', JSON.stringify(storedArray));
+
+              msgg = 'token has been added';
+              statusMsg2.style.color = "green";
+          }
+
+          statusMsg2.textContent = msgg;
+          statusMsg2.classList.remove('show');
+          void statusMsg2.offsetWidth; // Force reflow
+          statusMsg2.classList.add('show');
+
+          // Hide after seconds
+          setTimeout(() => {
+              statusMsg2.classList.remove('show');
+          }, 2000);
+
+          renderTable();
+        }
+    });
+
+    //refresh tokens
+    const btnRef = document.getElementById('btn-refresh');
+    btnRef.addEventListener('click', () => {
         renderTable();
     });
 
-    function getInput(sss) {
-      const input = document.getElementById('tokenInput').value.trim();
-      if (sss === 'start' | sss === 'stop') {
-        if (input) {
-          const btn = document.getElementById('myButton');
-          if (btn.innerText === 'Add') {
-              btn.innerText = 'Stop';
-              btn.style.backgroundColor = 'red';
-              btn.style.color = 'white';
-
-              let storedArray = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
-              storedArray.push(input);
-              localStorage.setItem('copyTokensArray', JSON.stringify(storedArray));
-
-              showMessage('added: ' + input);
-          } else {
-              btn.innerText = 'Add';
-              btn.style.backgroundColor = '';
-              btn.style.color = '';
-
-              let storedArray = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
-              storedArray = storedArray.filter(item => item !== input);
-              localStorage.setItem('copyTokensArray', JSON.stringify(storedArray));
-
-              showMessage('removed: ' + input);
-          }    
-        }
-        else {
-          showMessage('Enter token to copy');
-        }
-      }
-      if (sss === 'list') {
-          renderTable();
-          showMessage('tokens loaded');  
-      }
-
-      renderTable();
-    }
-
     const tokenTableBody = document.querySelector('#tokenTable tbody');
-    
     function renderTable() {
+      let isdemo_toreal = localStorage.getItem('demo_to_real');
+      if (isdemo_toreal === 'true' | isdemo_toreal === true) {
+        btn.textContent = 'Stop Demo to Real Copy Trading';
+        btn.style.backgroundColor = 'red';
+      }
+
+      let iscopyTrading = localStorage.getItem('iscopyTrading');
+      if (iscopyTrading === 'true' | isdemo_toreal === true) {
+        btnStart.textContent = 'Stop Copy Trading';
+        btnStart.style.backgroundColor = 'red';
+      }
+
+      const sArray = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
+      document.getElementById('no-tokens').textContent = '';
+      if (!sArray | sArray.length === 0) {
+        document.getElementById('no-tokens').textContent = 'No tokens added yet';
+      }
+      let num = sArray.length;
+      document.getElementById('tokens-num').textContent = 'Total Clients added: ' + num;
+
+
       let tokens = JSON.parse(localStorage.getItem('copyTokensArray')) || [];
       tokenTableBody.innerHTML = ''; // Clear table first
       tokens.forEach((token, index) => {
@@ -460,20 +355,89 @@
         tokenTableBody.appendChild(row);
       });
     }
-
     renderTable();
 
-    function showMessage(message) {
-      const snackbar = document.getElementById('snackbar');
-      snackbar.textContent = message;
-      snackbar.className = 'show';
+    function webSS() {
+        var APP_ID = localStorage.getItem('APP_ID');
+        let accounts_list = JSON.parse(localStorage.getItem('accountsList')) || {};
+        const keys = Object.keys(accounts_list);
+        let tokenz = [];
+        for (let i = 0; i < keys.length; i++) {
+          const key = keys[i];
+          const value = accounts_list[key];
+          tokenz.push(value);
+        }
+        let ws1 = new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=' + APP_ID)
+            
+        ws1.addEventListener("open", () => {
+            authorize();
+        });
 
-      // Hide it after 3 seconds
-      setTimeout(() => {
-        snackbar.className = snackbar.className.replace('show', '');
-      }, 3000);
+        ws1.addEventListener("close", (eve) => {
+            //console.dir(eve);
+        });
+
+        ws1.addEventListener("error", (err) => {
+            //console.dir(err);
+        });
+
+        ws1.addEventListener('message', function(data) { 
+            let ms = JSON.parse(data.data);
+
+            let req = ms.echo_req;
+            var req_id = req.req_id;
+            const error = ms.error;
+            if (error) {
+              console.log(ms)
+            }
+            else {
+              if (req_id === 2111) {
+                  const list = ms.authorize.account_list;
+                  for (var i = 0; i < list.length; i++) {
+                    const cur = list[i].currency;
+                    const is_virtual = list[i].is_virtual;
+                    const currency_type = list[i].currency_type;
+                    if (currency_type === 'fiat' && is_virtual === 0) {
+                      const loginid = list[i].loginid;
+                      document.getElementById('login-id').textContent = loginid;
+                      
+                      getBalance(loginid);
+                      break;
+                    }
+                  }
+              }
+
+              if (req_id === 2112) {
+                  const balance = ms.balance.balance;
+                  const currency = ms.balance.currency;
+                  document.getElementById('bal-id').textContent = balance + ' ' + currency;
+              }
+            }
+        });
+
+        function authorize() {
+            const msg = JSON.stringify({
+                authorize: 'MULTI',
+                tokens: tokenz,
+                req_id: 2111
+            });
+            if (ws1.readyState !== WebSocket.CLOSED) {
+                ws1.send(msg);
+            }
+        }
+        function getBalance(loginid) {
+            const msg = JSON.stringify({
+                balance: 1,
+                loginid: loginid,
+                req_id: 2112
+            });
+            if (ws1.readyState !== WebSocket.CLOSED) {
+                ws1.send(msg);
+            }
+        }
     }
-  </script>
+    webSS();
 
+  </script>
 </body>
 </html>
