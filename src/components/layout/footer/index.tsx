@@ -18,6 +18,7 @@ import ServerTime from './ServerTime';
 import WhatsApp from './WhatsApp';
 import Facebook from './Facebook';
 import Instagram from './Instagram';
+import Developer from './Developer';
 import './footer.scss';
 
 const Footer = () => {
@@ -42,6 +43,8 @@ const Footer = () => {
             <ServerTime />
             <div className='app-footer__vertical-line' />
             <NetworkStatus />
+            <div className='app-footer__vertical-line' />
+            <Developer />
             <Endpoint />
 
             {isModalOpenFor('DesktopLanguagesModal') && (
