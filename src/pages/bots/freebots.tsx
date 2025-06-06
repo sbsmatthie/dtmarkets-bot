@@ -6,13 +6,12 @@ import { LabelPairedMoonCaptionRegularIcon } from '@deriv/quill-icons/LabelPaire
 import { LabelPairedExclamationCaptionRegularIcon } from '@deriv/quill-icons/LabelPaired';
 import { Localize } from '@deriv-com/translations';
 // Import the XML files directly
-import x1 from './bot-files/Accumulators Robot $$.xml'; // Correct the import statement
-import x2 from './bot-files/Augmentation Bot $$$(2025).xml';
-import x3 from './bot-files/MasterSpeedBot$$$ V2(Over_Under Only).xml';
-import x4 from './bot-files/MDT SPEEDBOT $$ V2.xml'; // Correct the import statement
-import x5 from './bot-files/Q3 POWERAUTO(Rise_Fall & Even_Odd).xml';
-import x6 from './bot-files/STRIDE ROBOT$$$ V1 (OVER_UNDER ANALYZER WITH SPECIFIC DIGIT ENTRY).xml';
-import x7 from './bot-files/STRIDE ROBOT$$$ V2 (ALL MARKETS ANALYZER WITH SPECIFIC DIGIT ENTRY.xml';
+import x1 from './bot-files/1 $Orginal DollarPrinterBot  2025 Version $ (1).xml'; // Correct the import statement
+import x2 from './bot-files/deriv_geetrading_self_analysis_bot-1.xml';
+import x3 from './bot-files/Geepro Ai Bot2📈.xml';
+import x4 from './bot-files/Geepro Under7 Self Analysis Bot(1).xml'; // Correct the import statement
+import x5 from './bot-files/📈GeePro Digits Bot📈.xml';
+import x6 from './bot-files/📈GeePro Rise_Fall Bot📈.xml';
 import './freebots.scss';
 
 const FreeBots = observer(() => {
@@ -23,56 +22,49 @@ const FreeBots = observer(() => {
 
     // Map filenames to their XML content
     const botXmlMap: Record<string, string> = {
-        'Accumulators Robot $$.xml': x1,
-        'Augmentation Bot $$$(2025).xml': x2,
-        'MasterSpeedBot$$$ V2(Over_Under Only).xml': x3,
-        'MDT SPEEDBOT $$ V2.xml': x4,
-        'Q3 POWERAUTO(Rise_Fall & Even_Odd).xml': x5,
-        'STRIDE ROBOT$$$ V1 (OVER_UNDER ANALYZER WITH SPECIFIC DIGIT ENTRY).xml': x6,
-        'STRIDE ROBOT$$$ V2 (ALL MARKETS ANALYZER WITH SPECIFIC DIGIT ENTRY.xml': x7,
+        '1 $Orginal DollarPrinterBot  2025 Version $ (1).xml': x1,
+        'deriv_geetrading_self_analysis_bot-1.xml': x2,
+        'Geepro Ai Bot2📈.xml': x3,
+        'Geepro Under7 Self Analysis Bot(1).xml': x4,
+        '📈GeePro Digits Bot📈.xml': x5,
+        '📈GeePro Rise_Fall Bot📈.xml': x6,
     };
 
     const bots = [
         {
-            name: 'Accumulators Robot $$',
-            description: 'Accumulators Robot $$',
-            file: 'Accumulators Robot $$.xml',
+            name: '1 $Orginal DollarPrinterBot  2025 Version $ (1)',
+            description: '1 $Orginal DollarPrinterBot  2025 Version $ (1)',
+            file: '1 $Orginal DollarPrinterBot  2025 Version $ (1).xml',
             icon: '🤖',
         },
         {
-            name: 'Augmentation Bot $$$(2025)',
-            description: 'Augmentation Bot $$$(2025)',
-            file: 'Augmentation Bot $$$(2025).xml',
+            name: 'deriv_geetrading_self_analysis_bot-1',
+            description: 'deriv_geetrading_self_analysis_bot-1',
+            file: 'deriv_geetrading_self_analysis_bot-1.xml',
             icon: '🤖',
         },
         {
-            name: 'MasterSpeedBot$$$ V2(Over_Under Only)',
-            description: 'MasterSpeedBot$$$ V2(Over_Under Only)',
-            file: 'MasterSpeedBot$$$ V2(Over_Under Only).xml',
+            name: 'Geepro Ai Bot2📈',
+            description: 'Geepro Ai Bot2📈',
+            file: 'Geepro Ai Bot2📈.xml',
             icon: '🤖',
         },
         {
-            name: 'MDT SPEEDBOT $$ V2',
-            description: 'MDT SPEEDBOT $$ V2',
-            file: 'MDT SPEEDBOT $$ V2.xml',
+            name: 'Geepro Under7 Self Analysis Bot(1)',
+            description: 'Geepro Under7 Self Analysis Bot(1)',
+            file: 'Geepro Under7 Self Analysis Bot(1).xml',
             icon: '🤖',
         },
         {
-            name: 'Q3 POWERAUTO(Rise_Fall & Even_Odd)',
-            description: 'Q3 POWERAUTO(Rise_Fall & Even_Odd)',
-            file: 'Q3 POWERAUTO(Rise_Fall & Even_Odd).xml',
+            name: '📈GeePro Digits Bot📈',
+            description: '📈GeePro Digits Bot📈',
+            file: '📈GeePro Digits Bot📈.xml',
             icon: '🤖',
         },
         {
-            name: 'STRIDE ROBOT$$$ V1 (OVER_UNDER ANALYZER WITH SPECIFIC DIGIT ENTRY)',
-            description: 'STRIDE ROBOT$$$ V1 (OVER_UNDER ANALYZER WITH SPECIFIC DIGIT ENTRY)',
-            file: 'STRIDE ROBOT$$$ V1 (OVER_UNDER ANALYZER WITH SPECIFIC DIGIT ENTRY).xml',
-            icon: '🤖',
-        },
-        {
-            name: 'STRIDE ROBOT$$$ V2 (ALL MARKETS ANALYZER WITH SPECIFIC DIGIT ENTRY',
-            description: 'STRIDE ROBOT$$$ V2 (ALL MARKETS ANALYZER WITH SPECIFIC DIGIT ENTRY',
-            file: 'STRIDE ROBOT$$$ V2 (ALL MARKETS ANALYZER WITH SPECIFIC DIGIT ENTRY.xml',
+            name: '📈GeePro Rise_Fall Bot📈',
+            description: '📈GeePro Rise_Fall Bot📈',
+            file: '📈GeePro Rise_Fall Bot📈.xml',
             icon: '🤖',
         },
     ];
