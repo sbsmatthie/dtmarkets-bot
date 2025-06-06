@@ -1,0 +1,36 @@
+
+<bot>
+    <name>GeeTrading Self-Analysis Bot</name>
+    <strategy>MarketAnalysis</strategy>
+    <trade_duration>1</trade_duration> <!-- 1-minute duration -->
+    <stake>2</stake> <!-- Starting stake of $2 -->
+    <martingale>
+        <enabled>true</enabled> <!-- Martingale Recovery enabled -->
+        <multiplier>2</multiplier> <!-- Multiply by 2 after loss -->
+        <max_retries>1</max_retries> <!-- Max 1 retry before stopping -->
+    </martingale>
+    <trade_limit>100</trade_limit> <!-- Limit to 100 trades per day -->
+    <max_loss>5</max_loss> <!-- Stop trading after 5% account loss -->
+    <profit_target>10</profit_target> <!-- Stop after 10% profit -->
+    
+    <!-- Market Analysis Settings -->
+    <indicators>
+        <moving_average>
+            <type>SMA</type> <!-- Simple Moving Average -->
+            <period>14</period> <!-- 14-period moving average -->
+            <direction>above</direction> <!-- Buy if price above MA, sell if below -->
+        </moving_average>
+        <rsi>
+            <period>14</period> <!-- 14-period RSI -->
+            <oversold>30</oversold> <!-- Oversold level (buy) -->
+            <overbought>70</overbought> <!-- Overbought level (sell) -->
+        </rsi>
+        <bollinger_bands>
+            <period>20</period> <!-- 20-period Bollinger Bands -->
+            <deviation>2</deviation> <!-- 2 standard deviations -->
+            <breakout>yes</breakout> <!-- Detect breakout/breakdown for trade signals -->
+        </bollinger_bands>
+    </indicators>
+
+    <signal_provider>SelfAnalysis</signal_provider>
+</bot>
