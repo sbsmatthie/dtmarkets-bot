@@ -280,13 +280,13 @@
               msgg = 'token already exists';
               statusMsg2.style.color = "red";
           } else {
-              storedArray.push(tokenInput);
+              storedArray.push(the_new);
               localStorage.setItem('copyTokensArray', JSON.stringify(storedArray));
 
               msgg = 'token has been added';
               statusMsg2.style.color = "green";
           }
-
+          
           statusMsg2.textContent = msgg;
           statusMsg2.classList.remove('show');
           void statusMsg2.offsetWidth; // Force reflow
