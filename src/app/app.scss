@@ -45,8 +45,8 @@ strong {
 
 .risk-warning-button {
     position: fixed;
-    bottom: 1rem;
-    left: 1rem;
+    bottom: 4rem;
+    right: 1rem;
     z-index: 9999;  /* High enough to be on top */
     padding: 0.5rem 1rem;
     background-color: orange;
@@ -61,7 +61,7 @@ strong {
 .risk-warning-dialog {
     position: fixed;
     bottom: 4rem;  /* Adjust to show above the button */
-    left: 1rem;
+    right: 1rem;
     background: white;
     padding: 1rem;
     border: 1px solid #ccc;
