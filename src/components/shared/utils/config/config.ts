@@ -81,7 +81,7 @@ export const getDefaultAppIdAndUrl = () => {
 };
 
 export const getAppId = () => {
-    const APP_ID = 76671;
+    const APP_ID = 76406;
     localStorage.setItem('APP_ID', APP_ID);
     return APP_ID;
 };
